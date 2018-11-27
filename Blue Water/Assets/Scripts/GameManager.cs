@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 
     private void Awake()
     {
+        Screen.SetResolution(1366, 2048, false);
         gameManager = this;
         cameraEdges = new Vector4(
             Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 1, 0)).y,
