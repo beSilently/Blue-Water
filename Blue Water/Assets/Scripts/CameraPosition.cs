@@ -8,6 +8,8 @@ public class CameraPosition : MonoBehaviour {
     public float targetAspect = 16.0f / 9.0f;
     public float leftEdge { get; private set; }
     public float rightEdge { get; private set; }
+    public float bottomEdge { get; private set; }
+    public float topEdge { get; private set; }
 
     // Use this for initialization
     void Start()
@@ -50,6 +52,8 @@ public class CameraPosition : MonoBehaviour {
         }
         leftEdge = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
         rightEdge = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
+        bottomEdge = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
+        topEdge = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
 
     }
 }

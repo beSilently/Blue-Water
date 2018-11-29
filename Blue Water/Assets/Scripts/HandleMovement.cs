@@ -1,61 +1,46 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class HandleMovement : MonoBehaviour {
 
+	private Rigidbody2D rb;
+	private Vector2 mousePos;
+	private Vector2 offset;
+	private bool clicked;
+    private GameObject wall_bottom;
 
-public class HandleMovement : MonoBehaviour
-{
+	private void Start () {
+		rb = GetComponent<Rigidbody2D> ();
+		offset = transform.position;
+        wall_bottom = GameObject.Find("Wall_bottom");
+	}
 
-    public GameObject player;
+    private void FixedUpdate () {
+		if (Input.GetMouseButton (0)) {
+			mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 
-    bool dragging = false;
-    Vector3 mouseStartPos;      
-    Vector3 playerStartPos;
-    float leftEdge;
-    float rightEdge;
+			if (!clicked) {
+				offset = (Vector2) transform.position - mousePos + new Vector2 (0, Camera.main.GetComponent<CameraMovement> ().cameraSpeed);
+				clicked = true;
+            }
 
-    private void Start()
-    {
-        leftEdge = Camera.main.GetComponent<CameraPosition>().leftEdge;
-        rightEdge = Camera.main.GetComponent<CameraPosition>().rightEdge;
-    }
+			Vector2 newPos = new Vector2 (
+                Mathf.Clamp (mousePos.x + offset.x, Camera.main.GetComponent<CameraPosition>().leftEdge + 0.32f, Camera.main.GetComponent<CameraPosition>().rightEdge - 0.32f),
+                mousePos.y + offset.y
+            );
 
-    private void FixedUpdate()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            dragging = true;
-            mouseStartPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-            playerStartPos = player.transform.position;
+			rb.MovePosition (newPos);
+		}
+		else {
+			rb.MovePosition (transform.position + new Vector3 (0, Camera.main.GetComponent<CameraMovement> ().cameraSpeed, 0));
+            clicked = false;
+		}
+	}
+    private float AdjustY(float pos) {
+        if(pos < wall_bottom.transform.position.y) {
+            return wall_bottom.transform.position.y;
         }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            dragging = false;
-        }
-        else 
-        {
-            player.transform.position += new Vector3(0, Camera.main.GetComponent<CameraMovement>().cameraSpeed, 0);
-        }
-
-        if (dragging)
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-            Vector3 newPlayerPositiion = playerStartPos + mousePos - mouseStartPos;
-            AdjustX(ref newPlayerPositiion.x);
-            player.transform.position = newPlayerPositiion;
-        }
-    }
-    void AdjustX(ref float pos)
-    {
-        float radiusOfHandleObject = this.GetComponent<CircleCollider2D>().radius;
-        if (pos < leftEdge)
-        {
-            pos = leftEdge;
-        }
-        else if (pos > rightEdge)
-        {
-            pos = rightEdge;
-        }
+        return pos;
     }
 }
