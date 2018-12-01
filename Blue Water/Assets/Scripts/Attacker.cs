@@ -9,7 +9,7 @@ public interface IObserver
 
 public class Attacker : MonoBehaviour, IObserver {
 
-    readonly GameObject gameObject;
+    GameObject gameObject;
     Action action;
     bool attacked;
 
@@ -23,12 +23,9 @@ public class Attacker : MonoBehaviour, IObserver {
 
     public void OnNotify(Subject subject)
     {
-       
         if (!attacked && subject.transform.position.y  - subject.player.transform.position.y < subject.distance) {
-            gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            action.DoSomething(ref gameObject);
             attacked = true;
-            Debug.Log("Near!");
-
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraPosition : MonoBehaviour {
 
     // set the desired aspect ratio 
-    public float targetAspect = 16.0f / 9.0f;
+    public float targetAspect = 2.0f / 3.0f;
     public float leftEdge { get; private set; }
     public float rightEdge { get; private set; }
     public float bottomEdge { get; private set; }
@@ -19,8 +19,7 @@ public class CameraPosition : MonoBehaviour {
 
         // current viewport height should be scaled by this amount
         float scaleHeight = windowAspect / targetAspect;
-
-        // obtain camera component so we can modify its viewport
+        
         Camera camera = GetComponent<Camera>();
 
         // if scaled height is less than current height, add letterbox
@@ -36,7 +35,7 @@ public class CameraPosition : MonoBehaviour {
 
             camera.rect = rect;
         }
-        else // add pillarbox
+        else 
         {
             float scaleWidth = 1.0f / scaleHeight;
 
