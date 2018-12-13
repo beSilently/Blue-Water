@@ -8,7 +8,7 @@ public class Subject  : MonoBehaviour
 
     //Needs to be seen from other scripts
     public GameObject player;
-    public float distance;
+    public float distance = 6.5f;
 
     List<GameObject> objects = new List<GameObject>();
     List<IObserver> observers = new List<IObserver>();
@@ -16,7 +16,6 @@ public class Subject  : MonoBehaviour
    
     private void Start()
     {
-        distance = 6.5f;
         player = GameObject.Find("Balloon");
         objects.Add((GameObject)Instantiate(coffee, new Vector3(this.transform.position.x - 0.5f, this.transform.position.y + 1, 0), Quaternion.identity));
         objects.Add((GameObject)Instantiate(coffee, new Vector3(this.transform.position.x + 0.5f, this.transform.position.y + 1, 0), Quaternion.identity));
