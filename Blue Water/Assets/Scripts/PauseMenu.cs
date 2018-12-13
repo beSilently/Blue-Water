@@ -7,10 +7,16 @@ public class PauseMenu : MonoBehaviour {
 
     public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+    public static KeyCode PauseButton { get; set; }
+
+    private void Start()
+    {
+        string pauseButton = PlayerPrefs.GetString("PauseButton", "Escape");
+        PauseButton = (KeyCode)System.Enum.Parse(typeof(KeyCode), pauseButton);
+    }
+
+    void Update () {
+        if (Input.GetKeyDown(PauseButton)) {
             if (gameIsPaused) {
                 Resume();
             }

@@ -21,7 +21,7 @@ public class Target : MonoBehaviour {
 			SceneManager.LoadScene ("Gameplay");
 		}
 		else if (other.tag == "LevelEnd") {
-			other.tag = "Untagged"; //Can trigger only once (needs, bcz balloon has 2 colliders)
+			other.tag = "Untagged"; 
             currentLevelNumber++;
             LevelText.text = currentLevelNumber.ToString() + "/99";
         }
