@@ -17,9 +17,9 @@ public class WallsSetUp : MonoBehaviour {
 		Wall_bottom.size = new Vector2 (Camera.main.orthographicSize * Camera.main.aspect * 2 + 2, 1);
 		Wall_left.size = new Vector2 (1, Camera.main.orthographicSize * 4);
 
-        Wall_right.offset = new Vector2(camPos.rightEdge + 0.5f, camPos.bottomEdge);
+        Wall_right.offset = new Vector2(camPos.rightEdge + 2f, camPos.bottomEdge);
         Wall_bottom.offset = new Vector2(0, camPos.bottomEdge - Wall_bottom.size.y * 1/2);
-        Wall_left.offset = new Vector2(camPos.leftEdge - 0.5f, camPos.bottomEdge);
+        Wall_left.offset = new Vector2(camPos.leftEdge - 2f, camPos.bottomEdge);
     }
 
 }

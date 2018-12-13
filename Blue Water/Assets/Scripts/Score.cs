@@ -7,6 +7,6 @@ public class Score : MonoBehaviour {
     public Transform target;
 
 	void Update () {
-        scoreText.text = (target.transform.position.y + 3).ToString("0");
+        scoreText.text = (2 * (target.transform.position.y + 3)).ToString("0");
     }
 }

@@ -2,45 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IObserver
-{
-    void OnNotify(Subject subject);
-}
 
 public class Attacker : MonoBehaviour, IObserver {
 
     GameObject gameObject;
-    Action action;
+    IAction action;
     bool attacked;
 
 
-    public Attacker(GameObject gameObject, Action action)
+    public Attacker(GameObject gameObject, IAction action)
     {
         this.gameObject = gameObject;
         this.action = action;
         attacked = false;
     }
 
-    public void OnNotify(Subject subject)
+    public void OnNotify(Transform point, Transform target, float distance)
     {
-        if (!attacked && subject.transform.position.y  - subject.player.transform.position.y < subject.distance) {
+        if (!attacked && point.transform.position.y - target.transform.position.y < distance) {
             action.DoSomething(ref gameObject);
             attacked = true;
         }
     }
 }
 
-public abstract class Action
+public class Attack : IAction
 {
-    public abstract void DoSomething(ref GameObject gameObject);
-}
-
-
-public class Attack : Action
-{
-    public override void DoSomething(ref GameObject gameObject)
+    public void DoSomething(ref GameObject gameObject)
     {
         gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
     }
 }
+
 
