@@ -5,8 +5,15 @@ public class Score : MonoBehaviour {
 
     public Text scoreText;
     public Transform target;
+    int score;
 
 	void Update () {
-        scoreText.text = (2 * (target.transform.position.y + 3)).ToString("0");
+        score = Mathf.RoundToInt(2 * (target.transform.position.y + 3));
+        scoreText.text = score.ToString();
+
+        if (score > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
     }
 }
