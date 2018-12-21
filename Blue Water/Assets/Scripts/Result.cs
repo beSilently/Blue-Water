@@ -9,8 +9,8 @@ public class Result : MonoBehaviour
 
 	void Start ()
 	{ int Scores = GameObject.FindGameObjectWithTag ("Manager").GetComponent<GameManager1> ().scores;
-	  
-		if (Scores >= 1700)
+        Destroy(GameObject.FindGameObjectWithTag("Manager").gameObject);
+        if (Scores >= 1700)
 		{ description.text  = "Thank you very much! You did a great job!";
 
 		} 
